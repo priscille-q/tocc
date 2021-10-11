@@ -3,6 +3,7 @@
 use Tocc\One\Models\File;
 use Tocc\One\Models\Parameter;
 use Tocc\One\Models\ReadCsvFile;
+use Tocc\One\Models\WriteCsvFile;
 use Tocc\One\Services\MakeEntities;
 
 $arg = Parameter::getOptionParameter($argv);
@@ -20,12 +21,16 @@ $customerFile->openFile(realpath('.') . '/customer.csv', 'w');
 $itemFile->openFile(realpath('.') . '/item.csv', 'w');
 $orderItemFile->openFile(realpath('.') . '/orderItem.csv', 'w');
 
-// create entities file
-(new MakeEntities())->execute(
-    $file,
-    $orderFile,
-    $customerFile,
-    $itemFile,
-    $orderItemFile,
-    new ReadCsvFile()
-);
+try {
+    (new MakeEntities())->execute(
+        $file,
+        $orderFile,
+        $customerFile,
+        $itemFile,
+        $orderItemFile,
+        new ReadCsvFile(),
+        new WriteCsvFile()
+    );
+}catch (Exception $e) {
+    var_export($e->getMessage());
+}
