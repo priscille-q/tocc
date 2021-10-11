@@ -2,9 +2,14 @@
 
 namespace Tocc\One\Services;
 
+use Exception;
 use Tocc\One\Interfaces\FileInterface;
 use Tocc\One\Interfaces\ReadFileInterface;
 use Tocc\One\Interfaces\WriteFileInterface;
+use Tocc\One\Models\Customer;
+use Tocc\One\Models\Item;
+use Tocc\One\Models\Order;
+use Tocc\One\Models\OrderItem;
 
 class MakeEntities
 {
@@ -22,29 +27,22 @@ class MakeEntities
         $header = $reader->readNextLine($dataSourceFile->getFilePointer());
         $this->header = array_flip($header);
         if (!$this->isHeaderValid()) {
-            throw new \Exception('Invalid header');
+            throw new Exception('Invalid header');
         }
-    }
-
-    protected function formatDataForOrder(array $line): array
-    {
-        return [
-        ];
-    }
-
-    protected function formatDataForCustomer(array $line): array
-    {
-        return [];
-    }
-
-    protected function formatDataForItem(array $line): array
-    {
-        return [];
-    }
-
-    protected function formatDataForOrderItem(array $line): array
-    {
-        return [];
+        $order = new Order();
+        $writer->writeNextLine($orderFile->getFilePointer(), $order->formatHeader($this->header));
+        $customer = new Customer();
+        $writer->writeNextLine($customerFile->getFilePointer(), $customer->formatHeader($this->header));
+        $item = new Item();
+        $writer->writeNextLine($itemFile->getFilePointer(), $item->formatHeader($this->header));
+        $orderItem = new OrderItem();
+        $writer->writeNextLine($orderItemFile->getFilePointer(), $orderItem->formatHeader($this->header));
+        while ($line = $reader->readNextLine($dataSourceFile->getFilePointer())) {
+            $writer->writeNextLine($orderFile->getFilePointer(), $order->formatData($this->header, $line));
+            $writer->writeNextLine($customerFile->getFilePointer(), $customer->formatData($this->header, $line));
+            $writer->writeNextLine($itemFile->getFilePointer(), $item->formatData($this->header, $line));
+            $writer->writeNextLine($orderItemFile->getFilePointer(), $orderItem->formatData($this->header, $line));
+        }
     }
 
     private function isHeaderValid(): bool

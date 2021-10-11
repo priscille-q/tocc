@@ -18,7 +18,7 @@ class Parameter
             }
         } else {
             exit (
-            "Usage $> file1 <file2> <....> 
+            "Usage $> file1 file2 <....> 
                 There is no option\n"
             );
         }

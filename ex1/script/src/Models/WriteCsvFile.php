@@ -2,9 +2,11 @@
 
 namespace Tocc\One\Models;
 
+use InvalidArgumentException;
+use Tocc\One\Interfaces\WriteFileInterface;
 use Tocc\One\Traits\IsPointerValid;
 
-class WriteCsvFile
+class WriteCsvFile implements WriteFileInterface
 {
     use IsPointerValid;
 

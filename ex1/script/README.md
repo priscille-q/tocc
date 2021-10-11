@@ -1,3 +1,6 @@
+# Note
+duplication of entities not handled
+
 # Docker
 
 ## Build
