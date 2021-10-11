@@ -1,0 +1,17 @@
+{
+  "name": "tocc/ex1",
+  "type": "test",
+  "description": "Priscille Quistin's tocc ex 1.",
+  "keywords": [
+    "tocc",
+    "ex1"
+  ],
+  "require": {
+    "php": "^7.3|^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tocc\\One\\": "src/"
+    }
+  }
+}
