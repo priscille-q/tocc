@@ -35,15 +35,31 @@
                             <div class="mb-3">
                                 <textarea placeholder="Your message"  class="form-control" id="message"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#modal" >Submit</button>
                         </fieldset>
                     </form>
                 </div>
             </div>
         </main>
-
+        <div class="modal" tabindex="-1" id="modal">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Information you entered</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="./js/bootstrap.bundle.min.js"></script>
+        <script src="./js/app.js"></script>
     </body>
 </html>
  
